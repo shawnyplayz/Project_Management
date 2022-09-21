@@ -1,3 +1,4 @@
-export const BOOKMARK = "BOOKMARK";
-export const GETRID = "GETRID";
-
+export const USER = "USER";
+export const TECHNOLOGIES = "TECHNOLOGIES";
+export const PROJECTS = "PROJECTS";
+export const PERSONALPROJ = "PERSONALPROJ";

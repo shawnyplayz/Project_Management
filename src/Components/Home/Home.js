@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import swal from "sweetalert";
 import { bookmark } from "../../Reducer/actions";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import "./Home.css"
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./Home.css";
 
 class Home extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Home extends Component {
     this.state = {
       newsArr: [],
       captureArr: this.props.bookMarkArr,
-      bookmarked: false
+      bookmarked: false,
     };
   }
   componentDidMount() {
@@ -37,25 +37,25 @@ class Home extends Component {
     }
   };
   captureNews(e, index) {
-    debugger
+    debugger;
     for (let j = 0; j < this.state.captureArr.length; j++) {
-      let tempNews = this.state.newsArr[index]
+      let tempNews = this.state.newsArr[index];
       if (Number(this.props.bookMarkArr[j].id) === Number(tempNews.id)) {
         swal({
           title: "oops!",
           text: "This news is already bookmarked!",
           icon: "error",
         });
-        return
+        return;
       }
       // if (this.state.captureArr[index].id === this.props.bookMarkArr[j])
     }
     this.state.captureArr.push(this.state.newsArr[index]);
     this.setState({
       ...this.state.captureArr,
-      bookmarked: true
+      bookmarked: true,
     });
-    toast.success('Bookmarked Successfully!', {
+    toast.success("Bookmarked Successfully!", {
       position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -64,24 +64,20 @@ class Home extends Component {
       draggable: true,
       progress: undefined,
     });
-    console.log("captureArr=>", this.state.captureArr)
-    this.props.dispatch(bookmark('bookMarkArr', this.state.captureArr));
+    console.log("captureArr=>", this.state.captureArr);
+    // this.props.dispatch(bookmark('bookMarkArr', this.state.captureArr));
   }
 
   render() {
     return (
       <div className="container">
-        <h1 className="display-3 my-head">Top Hacker News</h1>
+        <h1 className="display-3 my-head">{this.props.user}</h1>
         <div className="row">
-
           {this.state.newsArr.map((el, index) => {
-            if (el.type === 'story' && el.url)
+            if (el.type === "story" && el.url)
               return (
                 <div className="col-md-4">
-                  <div
-                    className="card my-2 shadow myCard"
-                    key={index}
-                  >
+                  <div className="card my-2 shadow myCard" key={index}>
                     <div className="card-body">
                       <div className="heightTitle">
                         <h5 className="card-title meri-link">{el.title}</h5>
@@ -97,27 +93,29 @@ class Home extends Component {
                       <div className="row">
                         <div className="col-md-6">
                           <div className="btn btn-danger btn-sm">
-                            <a href={el.url} className="link-light text-decoration-none meri-link" target="_blank">
+                            <a
+                              href={el.url}
+                              className="link-light text-decoration-none meri-link"
+                              target="_blank"
+                            >
                               Read More
                             </a>
                           </div>
-
                         </div>
                         <div className="col-md-6">
                           <button
                             onClick={(event) => this.captureNews(event, index)}
                             className="btn btn-primary btn-sm"
-                          >Bookmark this
+                          >
+                            Bookmark this
                           </button>
                         </div>
-
                       </div>
                     </div>
                   </div>
                 </div>
               );
           })}
-
         </div>
         <ToastContainer />
       </div>
@@ -125,6 +123,6 @@ class Home extends Component {
   }
 }
 function mapStateToProps(state) {
-  return state
+  return state;
 }
 export default withRouter(connect(mapStateToProps)(Home));
