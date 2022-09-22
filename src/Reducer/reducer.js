@@ -2,11 +2,8 @@
 
 const initialState = {
   currentUser: null,
-  empName: null,
-  empPass: null,
-  menName: null,
-  menPass: null,
-  users: []
+  users: [],
+  projects: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,6 +15,10 @@ const reducer = (state = initialState, action) => {
     case "CURRENTUSER":
       debugger;
       state[action.key] = action.value;
+      return Object.assign({}, state);
+    case "PROJECTS":
+      debugger;
+      (state.projects).push(action.value)
       return Object.assign({}, state);
     case "TECHNOLOGIES":
       state[action.key] = action.value;

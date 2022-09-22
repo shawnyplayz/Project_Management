@@ -75,7 +75,7 @@ class SideBar extends Component {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/Bookmark">
+                    <NavLink to="/AddProj">
                       <i className="fa fa-folder"></i>
                       <span>Add Projects</span>
                     </NavLink>

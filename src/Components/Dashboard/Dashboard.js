@@ -7,6 +7,7 @@ import {
   Link,
   Switch,
 } from "react-router-dom";
+import AddProj from "../AddProj/AddProj";
 import Home from "../Home/Home";
 import SideBar from "../SideBar/SideBar";
 import "./Dashboard.css";
@@ -25,6 +26,9 @@ export default class Dashboard extends Component {
               </Route>
               <Route path="/Home">
                 <Home />
+              </Route>
+              <Route path="/AddProj">
+                <AddProj />
               </Route>
             </Switch>
           </div>

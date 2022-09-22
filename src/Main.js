@@ -5,6 +5,7 @@ import {
   Switch,
   withRouter,
 } from "react-router-dom";
+import AddProj from "./Components/AddProj/AddProj";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import Login from "./Components/Login/Login";
 import SignUp from "./Components/SignUp/SignUp";
@@ -22,7 +23,7 @@ export default class Main extends Component {
                 <Route exact path="/">
                   <Login />
                 </Route>
-                <Route path="/News">
+                <Route path="/proj">
                   <Login />
                 </Route>
                 <Route path="/signup">
@@ -32,6 +33,9 @@ export default class Main extends Component {
                   <Dashboard />
                 </Route>
                 <Route path="/Home">
+                  <Dashboard />
+                </Route>
+                <Route path="/addProj">
                   <Dashboard />
                 </Route>
               </Switch>
