@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import swal from "sweetalert";
+import { currentlogin } from "../../Reducer/actions";
 import "./Login.css";
 
 class Login extends Component {
@@ -16,7 +17,7 @@ class Login extends Component {
     };
     this.onSubmit = this.onSubmit.bind(this);
   }
-  componentDidMount() {}
+  componentDidMount() { }
   // handleChange(e) {
   //   this.setState({
   //     [e.target.name]: e.target.value
@@ -24,17 +25,32 @@ class Login extends Component {
   // }
   onSubmit(e) {
     e.preventDefault();
-    debugger;
     try {
-      if (this.state.uname === "admin" && this.state.pass === "admin") {
-        this.setState({
-          loggedIn: true,
-        });
+      let c;
+      let myuser = {
+        type: this.state.selectedOption === "inlineCheckbox1" ? "MENTOR" : "EMPLOYEE",
+        uname: this.state.uname,
+        pass: this.state.pass,
+      }
+      for (let i = 0; i < (this.props.reducer.users).length; i++) {
+        debugger;
+        let yourUser = JSON.stringify(this.props.reducer.users[i])
+
+        let myuserStringified = JSON.stringify(myuser)
+
+        c = yourUser == myuserStringified
+        console.log(c)
+        if (c) {
+          this.props.dispatch(currentlogin('currentUser', myuser))
+          this.setState({
+            loggedIn: true,
+          });
+        }
         // this.props.history.push("/Dashboard");
-      } else {
+      } if (c === false) {
         swal({
           title: "Invalid Credentials!",
-          text: "User Name : admin Password: admin",
+          text: "Invalid Credentials",
           icon: "error",
         });
         return;
@@ -107,54 +123,49 @@ class Login extends Component {
                           }
                         />
                       </div>
-                      {this.state.showSignUp ? (
-                        <>
-                          <div className="form-check form-check-inline">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id="inlineCheckbox1"
-                              checked={
-                                this.state.selectedOption === "inlineCheckbox1"
-                              }
-                              onClick={(e) => {
-                                debugger;
-                                this.setState({
-                                  selectedOption: e.target.id,
-                                });
-                              }}
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor="inlineCheckbox1"
-                            >
-                              Mentor
-                            </label>
-                          </div>
-                          <div className="form-check form-check-inline">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id="inlineCheckbox2"
-                              checked={
-                                this.state.selectedOption === "inlineCheckbox2"
-                              }
-                              onClick={(e) =>
-                                this.setState({
-                                  selectedOption: e.target.id,
-                                })
-                              }
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor="inlineCheckbox2"
-                            >
-                              Employee
-                            </label>
-                          </div>
-                        </>
-                      ) : null}
-
+                      <div className="form-check form-check-inline">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="inlineCheckbox1"
+                          checked={
+                            this.state.selectedOption === "inlineCheckbox1"
+                          }
+                          onClick={(e) => {
+                            debugger;
+                            this.setState({
+                              selectedOption: e.target.id,
+                            });
+                          }}
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="inlineCheckbox1"
+                        >
+                          MENTOR
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="inlineCheckbox2"
+                          checked={
+                            this.state.selectedOption === "inlineCheckbox2"
+                          }
+                          onClick={(e) =>
+                            this.setState({
+                              selectedOption: e.target.id,
+                            })
+                          }
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="inlineCheckbox2"
+                        >
+                          EMPLOYEE
+                        </label>
+                      </div>
                       {/* <div className="col-md-12 text-center my-2"> */}
                       <div className="d-flex justify-content-evenly">
                         <button

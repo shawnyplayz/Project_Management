@@ -1,8 +1,15 @@
-import { USER, TECHNOLOGIES, PROJECTS, PERSONALPROJ } from "./actionType";
+import { USER, TECHNOLOGIES, PROJECTS, PERSONALPROJ, CURRENTUSER } from "./actionType";
 
 export const login = (key, value) => {
   return {
     type: USER,
+    key: key,
+    value: value,
+  };
+};
+export const currentlogin = (key, value) => {
+  return {
+    type: CURRENTUSER,
     key: key,
     value: value,
   };

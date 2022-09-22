@@ -20,33 +20,34 @@ class SignUp extends Component {
   onSignup(e) {
     debugger;
     e.preventDefault();
+
     try {
-      if (this.state.selectedOption === "inlineCheckbox1")
-        this.props.dispatch(login("user", "MENTOR"));
-      else this.props.dispatch(login("user", "EMPLOYEE"));
-      if (this.state.uname === "admin" && this.state.pass === "admin") {
-        this.setState({
-          loggedIn: true,
-        });
-        // this.props.history.push("/Dashboard");
-      } else {
-        swal({
-          title: "Invalid Credentials!",
-          text: "User Name : admin Password: admin",
-          icon: "error",
-        });
-        return;
+
+      let myuser = {
+        type: this.state.selectedOption === "inlineCheckbox1" ? "MENTOR" : "EMPLOYEE",
+        uname: this.state.uname,
+        pass: this.state.pass
       }
+      if (this.state.selectedOption === "inlineCheckbox1") {
+        this.props.dispatch(login("users",
+          myuser
+        ));
+        // this.props.dispatch(login("menName", this.state.uname));
+        // this.props.dispatch(login("menPass", this.state.pass));
+      }
+      else {
+        this.props.dispatch(login("users",
+          myuser));
+        // this.props.dispatch(login("empName", this.state.uname));
+        // this.props.dispatch(login("empPass", this.state.pass));
+      }
+      this.props.history.push("/");
     } catch (error) {
       console.log(error);
     }
   }
 
   render() {
-    if (this.state.loggedIn === true) {
-      debugger;
-      return <Redirect to="/Dashboard" />;
-    }
     return (
       <div className="main_Login container-fluid vh-100 d-flex justify-content-center align-items-center">
         <div className="card shadow container py-4 myRound">
@@ -124,7 +125,7 @@ class SignUp extends Component {
                           className="form-check-label"
                           htmlFor="inlineCheckbox1"
                         >
-                          Mentor
+                          MENTOR
                         </label>
                       </div>
                       <div className="form-check form-check-inline">
@@ -145,7 +146,7 @@ class SignUp extends Component {
                           className="form-check-label"
                           htmlFor="inlineCheckbox2"
                         >
-                          Employee
+                          EMPLOYEE
                         </label>
                       </div>
                     </>

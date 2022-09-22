@@ -25,16 +25,16 @@ class SideBar extends Component {
               </div>
               <div className="user-info">
                 <span className="user-name">
-                  <strong>Shawn Almeida</strong>
+                  <strong>{(this.props.reducer.currentUser.uname).toUpperCase()}</strong>
                 </span>
-                <span className="user-role">{this.props.user}</span>
+                <span className="user-role">{(this.props.reducer.currentUser.type).toLowerCase()}</span>
                 <span className="user-status">
                   <i className="fa fa-circle"></i>
                   <span>Online</span>
                 </span>
               </div>
             </div>
-            {this.props.user === "EMPLOYEE" ? (
+            {this.props.reducer.currentUser.type === "EMPLOYEE" ? (
               //Employee
               <div className="sidebar-menu">
                 <ul>

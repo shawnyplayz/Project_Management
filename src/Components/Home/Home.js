@@ -71,7 +71,7 @@ class Home extends Component {
   render() {
     return (
       <div className="container">
-        <h1 className="display-3 my-head">{this.props.user}</h1>
+        <h1 className="display-3 my-head">{this.props.reducer.currentUser.type}</h1>
         <div className="row">
           {this.state.newsArr.map((el, index) => {
             if (el.type === "story" && el.url)

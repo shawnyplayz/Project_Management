@@ -17,7 +17,7 @@ export default class Main extends Component {
       <div className="bgImg">
         <div className="main_container">
           <Suspense fallback="loading">
-            <Router>
+            <Router basename="/Proj">
               <Switch>
                 <Route exact path="/">
                   <Login />
