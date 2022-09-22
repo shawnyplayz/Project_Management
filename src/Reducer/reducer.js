@@ -13,7 +13,6 @@ const reducer = (state = initialState, action) => {
       // state[action.key] = (state.users).push(action.value);
       return Object.assign({}, state);
     case "CURRENTUSER":
-      debugger;
       state[action.key] = action.value;
       return Object.assign({}, state);
     case "PROJECTS":

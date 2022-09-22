@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { projects } from '../../Reducer/actions';
-
+import './AddProj.css'
 class AddProj extends Component {
   constructor(props) {
     super(props)
@@ -15,8 +15,11 @@ class AddProj extends Component {
       toDate: null,
       displayArr: [],
       selectedMem: null,
-      dispatchingArr: []
+      dispatchingArr: [],
+      stack: null,
+      nameProj: ''
     }
+    this.onSubmit = this.onSubmit.bind(this)
   }
   members() {
     this.state.displayArr = this.props.reducer.users
@@ -26,9 +29,7 @@ class AddProj extends Component {
           data.uname
         } key={index} id="opt" > {data.uname}</option >
       )
-    }
-    )
-    )
+    }))
   }
   onHandleChange = (e) => {
     debugger
@@ -36,15 +37,39 @@ class AddProj extends Component {
       selectedMem: e.target.value
     });
   }
+  onHandleAll = (e) => {
+    this.setState({
+      nameProj: e.target.value
+    });
+  }
   addMembers() {
     debugger
-    let asd = []
+    let asd = [];
+    asd = this.state.dispatchingArr
     asd.push(this.state.selectedMem)
     this.setState({
       dispatchingArr: asd
     })
     // this.state.displayArr.splice(1, this.state.indi)
     // this.props.dispatch(projects('PROJECTS', this.props.reducer.user))
+  }
+  onSubmit() {
+    let asd = {
+      name: this.state.nameProj,
+      fromDate: this.state.fromDate,
+      toDate: this.state.toDate,
+      members: this.state.dispatchingArr
+    }
+
+    debugger
+    this.props.dispatch(projects('projects', asd))
+    this.setState({
+      nameProj: '',
+      fromDate: null,
+      toDate: null,
+      selectedMem: '',
+      dispatchingArr: []
+    })
   }
   render() {
     return (
@@ -152,16 +177,33 @@ class AddProj extends Component {
           <Card.Body>
             <Row className='my-2'>
               <Col sm={12} md={6} lg={6}>
+                <Form.Label className="my-shawn-label m-0 my-2">Name of the Project</Form.Label>
+              </Col>
+              <Col sm={12} md={6} lg={6}>
+                <input
+                  className="form-control selectwidth text-left"
+                  name="nameProj"
+                  value={this.state.nameProj}
+                  type="text"
+                  placeholder=""
+                  onChange={(e) => this.onHandleAll(e)}
+                />
+              </Col>
+            </Row>
+            <Row className='my-2'>
+              <Col sm={12} md={6} lg={6}>
                 <Form.Label className="my-shawn-label m-0 my-2">Select Stack</Form.Label>
               </Col>
               <Col sm={12} md={6} lg={6}>
                 <Form.Control
                   className='my-1'
                   as="select"
-                // value={this.state.accNo}
-                // onChange={this.onHandleChange}
+                  value={this.state.stack}
+                  onChange={this.onHandleChange}
                 >
-                  <option value="select">Select</option>
+                  <option value="select">MERN</option>
+                  <option value="select">MEAN</option>
+                  <option value="select">.NET</option>
                 </Form.Control>
               </Col>
             </Row>
@@ -180,8 +222,8 @@ class AddProj extends Component {
                 <Form.Label className="my-shawn-label m-0 my-2">To Date</Form.Label>
               </Col>
               <Col sm={12} md={6} lg={6}>
-                <DatePicker selected={this.state.ToDate} onChange={(date) => this.setState({
-                  ToDate: date
+                <DatePicker selected={this.state.toDate} onChange={(date) => this.setState({
+                  toDate: date
                 })}
                 />
               </Col>
@@ -210,13 +252,19 @@ class AddProj extends Component {
             </Row>
             <Row className='my-2'>
               <Col sm={12} md={12} lg={12}>
-                {this.state.dispatchingArr}
+                <div className="anime-btns">
+                  {this.state.dispatchingArr.map(item =>
+                    <p className="my-2 me-4 my-btn">
+                      {item}
+                    </p>
+                  )}
+                </div>
               </Col>
             </Row>
           </Card.Body>
           <Card.Footer>
             <Button className='rounded realbtn-width btn-color-right h-100' size="md"
-            // onClick={this.props.onClear}
+              onClick={this.onSubmit}
             >Save Project
             </Button>
 

@@ -1,0 +1,10 @@
+.anime-btns {
+  display: flex;
+  justify-content: flex-start;
+}
+.my-btn {
+  padding: 2px 10px;
+  background-color: burlywood;
+  border: 2px solid black;
+  border-radius: 10px;
+}
