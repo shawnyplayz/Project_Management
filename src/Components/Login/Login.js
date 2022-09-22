@@ -23,6 +23,7 @@ class Login extends Component {
   //     [e.target.name]: e.target.value
   //   })
   // }
+
   onSubmit(e) {
     e.preventDefault();
     try {
@@ -45,6 +46,7 @@ class Login extends Component {
           this.setState({
             loggedIn: true,
           });
+          return
         }
         // this.props.history.push("/Dashboard");
       } if (c === false) {

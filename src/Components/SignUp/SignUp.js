@@ -16,11 +16,18 @@ class SignUp extends Component {
       selectedOption: null,
     };
     this.onSignup = this.onSignup.bind(this);
+    this.clearScreen = this.clearScreen.bind(this);
   }
-  onSignup(e) {
+  clearScreen(){
+    debugger
+    this.setState({
+      uname : null,
+      pass:null
+        })
+  }
+  async onSignup(e) {
     debugger;
     e.preventDefault();
-
     try {
 
       let myuser = {
@@ -31,17 +38,27 @@ class SignUp extends Component {
       if (this.state.selectedOption === "inlineCheckbox1") {
         this.props.dispatch(login("users",
           myuser
-        ));
-        // this.props.dispatch(login("menName", this.state.uname));
-        // this.props.dispatch(login("menPass", this.state.pass));
+          ));
+        await  this.clearScreen()
+        // swal({
+        //   title: "Hooray!",
+        //   text: "Registered Successfully",
+        //   icon: "success",
+        // },()=>this.clearScreen()); 
+        
       }
       else {
         this.props.dispatch(login("users",
           myuser));
-        // this.props.dispatch(login("empName", this.state.uname));
-        // this.props.dispatch(login("empPass", this.state.pass));
+          this.clearScreen()
+          swal({
+            title: "Hooray!",
+            text: "Registered Successfully",
+            icon: "success",
+          });
+        
       }
-      this.props.history.push("/");
+     
     } catch (error) {
       console.log(error);
     }
