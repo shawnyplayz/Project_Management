@@ -45,6 +45,9 @@ export default class Main extends Component {
                 <Route path="/Personal">
                   <Dashboard />
                 </Route>
+                <Route path="/Technologies">
+                  <Dashboard />
+                </Route>
               </Switch>
             </Router>
           </Suspense>

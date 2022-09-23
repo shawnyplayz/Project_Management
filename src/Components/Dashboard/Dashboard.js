@@ -14,6 +14,7 @@ import AddProj from "../AddProj/AddProj";
 import Home from "../Home/Home";
 import Personal from "../Personal/Personal";
 import SideBar from "../SideBar/SideBar";
+import Tech from "../Technologies/Tech";
 import "./Dashboard.css";
 class Dashboard extends Component {
   constructor(props) {
@@ -48,6 +49,9 @@ class Dashboard extends Component {
               </Route>
               <Route path="/Personal">
                 <Personal />
+              </Route>
+              <Route path="/Technologies">
+                <Tech />
               </Route>
             </Switch>
           </div>
