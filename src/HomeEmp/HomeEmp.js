@@ -35,9 +35,14 @@ class HomeEmp extends Component {
       <div className="container">
         <h1 className="display-3 my-head">{this.props.reducer.currentUser.type}</h1>
         <div className="row">
-          {this.state.empArr.map((el, index) => {
-            debugger
-
+          <div className="card bg-dark">
+            <div className="card-Header text-color-white">
+              <h2 className='text-white'>Projects</h2>
+            </div>
+            <div className="card-Body">
+              
+          {this.state.empArr !== [] ? 
+          this.state.empArr.map((el, index) => {
             return (
               <div className="col-md-4">
                 <div className="card my-2 shadow myCard" key={index}>
@@ -70,8 +75,16 @@ class HomeEmp extends Component {
                   </div>
                 </div>
               </div>
-            );
-          })}
+            )
+            
+          })
+          :
+            
+            <h2>No Projects</h2>
+        }
+            </div>
+          </div>
+          
         </div>
         <ToastContainer />
       </div>

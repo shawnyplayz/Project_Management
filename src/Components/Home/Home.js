@@ -44,7 +44,7 @@ class Home extends Component {
 
             return (
               <div className="col-md-4">
-                <div className="card my-2 shadow myCard" key={index}>
+                <div className="card my-2 shadow myCard">
                   <div className="card-body">
                     <div className="heightTitle">
                       <h2 className="card-title meri-link text-truncate">{el.name}</h2>
@@ -66,8 +66,6 @@ class Home extends Component {
                       <div className="col-md-6">
                         <div className="btn btn-danger btn-sm">
                           <h6>Technology Stack : {el.stack}</h6>
-
-
                         </div>
                       </div>
                     </div>

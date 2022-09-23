@@ -5,7 +5,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { projects } from '../../Reducer/actions';
+import { AiFillCloseCircle } from 'react-icons/ai';
+
 import './AddProj.css'
+import swal from 'sweetalert';
 class AddProj extends Component {
   constructor(props) {
     super(props)
@@ -52,6 +55,14 @@ class AddProj extends Component {
   }
   addMembers() {
     debugger
+    if(this.state.selectedMem === null || this.state.selectedMem ==='' ||this.state.selectedMem ==='select'){
+      swal({
+        title: "Nope!",
+        text: "Add atleast one Member!",
+        icon: "error",
+      })
+      return
+    }
     let asd = [];
     asd = this.state.dispatchingArr
     asd.push(this.state.selectedMem)
@@ -82,107 +93,22 @@ class AddProj extends Component {
   }
   techStack() {
     debugger
-
     return (this.state.techs.map((data, index) => {
       return (
         <option value={data} key={index} id="opt" > {data}</option >
       )
     }))
   }
+  removeMem(e,index){
+debugger
+this.state.dispatchingArr.splice(index, 1)
+    this.setState({
+      ...this.state.dispatchingArr
+    })
+console.log(index)
+  }
   render() {
     return (
-      // <div className='container my-4'>
-      //   <div className="row">
-      //     <div className="card shadow">
-      //       <div className="card-Header">
-      //         <h3>Add Projects</h3>
-      //       </div>
-      //       <div className="card-body">
-      //         <form>
-      //           <div className="row my-2">
-      //             <div className="col-lg-6">
-      //               <div class="form-group">
-      //                 <label for="exampleInputEmail1">Name of the Project</label>
-      //                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-      //               </div>
-      //             </div>
-      //             <div className="col-lg-6">
-      //               <div class="form-group">
-      //                 <label for="exampleFormControlInput1">Requirements</label>
-      //                 <textarea class="form-control" placeholder='frontend/backend' id="exampleFormControlTextarea1" rows="1"></textarea>
-      //               </div>
-      //             </div>
-      //             <div className="col-lg-3">
-      //               <label for="exampleFormControlInput1">From Date</label>
-      //               <DatePicker selected={this.state.fromDate} onChange={(date) => this.setState({
-      //                 fromDate: date
-      //               })} />
-      //               {/* <div class="form-group">
-      //                 <label for="exampleFormControlTextarea1">Example textarea</label>
-      //                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-      //               </div> */}
-      //             </div>
-      //             <div className="col-lg-3">
-      //               <label for="exampleFormControlInput1">To Date</label>
-      //               <DatePicker selected={this.state.toDate} onChange={(date) => this.setState({
-      //                 toDate: date
-      //               })} />
-      //             </div>
-      //           </div>
-      //           <div className="row my-2">
-      //             <div className="col-lg-6">
-      //               <div class="form-group my-2">
-      //                 <label for="exampleFormControlFile1">Add Documents</label>
-      //                 <input type="file" class="form-control-file" id="exampleFormControlFile1" />
-      //               </div>
-      //             </div>
-      //             <div className="col-lg-6">
-      //               <li className="nav-item dropdown mx-3">
-      //                 <a
-      //                   className="nav-link dropdown-toggle"
-      //                   href="/"
-      //                   id="AboutNavbarDropdown"
-      //                   role="button"
-      //                   data-bs-toggle="dropdown"
-      //                   aria-expanded="false"
-      //                 >
-      //                   About
-      //                 </a>
-      //                 <ul
-      //                   className="dropdown-menu"
-      //                   style={{ marginLeft: "46%" }}
-      //                   aria-labelledby="AboutNavbarDropdown"
-      //                 >
-      //                   <li>
-      //                     <a
-      //                       className="dropdown-item"
-
-      //                       activeclassname="active"
-      //                     >
-      //                       About Us
-      //                     </a>
-      //                   </li>
-      //                   <li>
-      //                     <a
-      //                       className="dropdown-item"
-
-      //                       activeclassname="active"
-      //                     >
-      //                       Our Pedagogy
-      //                     </a>
-      //                   </li>
-      //                 </ul>
-      //               </li>
-
-      //             </div>
-      //           </div>
-
-      //         </form>
-      //       </div>
-
-      //     </div>
-      //   </div >
-      // </div >
       <Container className='my-4'>
         <Card className='shadow-sm'>
           <Card.Header className="bg-white text-success">
@@ -271,11 +197,15 @@ class AddProj extends Component {
             <Row className='my-2'>
               <Col sm={12} md={12} lg={12}>
                 <div className="anime-btns">
-                  {this.state.dispatchingArr.map(item =>
-                    <p className="my-2 me-4 my-btn">
-                      {item}
-                    </p>
-                  )}
+                  {this.state.dispatchingArr.map((item,index) =>
+                  {
+                    return (
+                    <p className="my-2 me-4 my-btn d-flex align-items-center justify-content-around" key={index} onClick={(e)=>this.removeMem(e,index)}>
+                      {item}<AiFillCloseCircle/>
+                    </p>)
+                  }
+                  )
+                }
                 </div>
               </Col>
             </Row>
