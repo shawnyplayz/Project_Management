@@ -17,7 +17,8 @@ class AddProj extends Component {
       selectedMem: null,
       dispatchingArr: [],
       stack: null,
-      nameProj: ''
+      nameProj: '',
+      techs: ['MEAN', '.NET', 'PYTON']
     }
     this.onSubmit = this.onSubmit.bind(this)
   }
@@ -33,9 +34,16 @@ class AddProj extends Component {
   }
   onHandleChange = (e) => {
     debugger
-    this.setState({
-      selectedMem: e.target.value
-    });
+    if (e.target.name === 'stack') {
+      this.setState({
+        stack: e.target.value
+      })
+    }
+    else {
+      this.setState({
+        selectedMem: e.target.value
+      });
+    }
   }
   onHandleAll = (e) => {
     this.setState({
@@ -58,6 +66,7 @@ class AddProj extends Component {
       name: this.state.nameProj,
       fromDate: this.state.fromDate,
       toDate: this.state.toDate,
+      stack: this.state.stack,
       members: this.state.dispatchingArr
     }
 
@@ -70,6 +79,15 @@ class AddProj extends Component {
       selectedMem: '',
       dispatchingArr: []
     })
+  }
+  techStack() {
+    debugger
+
+    return (this.state.techs.map((data, index) => {
+      return (
+        <option value={data} key={index} id="opt" > {data}</option >
+      )
+    }))
   }
   render() {
     return (
@@ -198,12 +216,12 @@ class AddProj extends Component {
                 <Form.Control
                   className='my-1'
                   as="select"
+                  name="stack"
                   value={this.state.stack}
                   onChange={this.onHandleChange}
                 >
-                  <option value="select">MERN</option>
-                  <option value="select">MEAN</option>
-                  <option value="select">.NET</option>
+                  <option value="MERN">MERN</option>
+                  {this.techStack()}
                 </Form.Control>
               </Col>
             </Row>

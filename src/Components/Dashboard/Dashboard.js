@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,12 +7,19 @@ import {
   Route,
   Link,
   Switch,
+  withRouter,
 } from "react-router-dom";
+import HomeEmp from "../../HomeEmp/HomeEmp";
 import AddProj from "../AddProj/AddProj";
 import Home from "../Home/Home";
+import Personal from "../Personal/Personal";
 import SideBar from "../SideBar/SideBar";
 import "./Dashboard.css";
-export default class Dashboard extends Component {
+class Dashboard extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
       <>
@@ -22,13 +30,24 @@ export default class Dashboard extends Component {
           <div className="col-lg-10">
             <Switch>
               <Route exact path="/Dashboard">
-                <Home />
+                {
+                  this.props.reducer.currentUser.type === 'EMPLOYEE' ?
+                    <HomeEmp />
+                    :
+                    <Home />
+                }
               </Route>
               <Route path="/Home">
                 <Home />
               </Route>
+              <Route path='/HomeEmp'>
+                <HomeEmp />
+              </Route>
               <Route path="/AddProj">
                 <AddProj />
+              </Route>
+              <Route path="/Personal">
+                <Personal />
               </Route>
             </Switch>
           </div>
@@ -37,3 +56,7 @@ export default class Dashboard extends Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return state;
+}
+export default withRouter(connect(mapStateToProps)(Dashboard))

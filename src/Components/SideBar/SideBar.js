@@ -39,19 +39,19 @@ class SideBar extends Component {
               <div className="sidebar-menu">
                 <ul>
                   <li>
-                    <NavLink to="/Home">
+                    <NavLink to="/HomeEmp">
                       <i className="fa fa-folder"></i>
                       <span>Home</span>
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/Bookmark">
+                    <NavLink to="/Technologies">
                       <i className="fa fa-folder"></i>
                       <span>Technologies</span>
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/Bookmark">
+                    <NavLink to="/Personal">
                       <i className="fa fa-folder"></i>
                       <span>Personal</span>
                     </NavLink>

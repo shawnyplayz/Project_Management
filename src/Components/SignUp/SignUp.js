@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link, Redirect, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import swal from "sweetalert";
 import { login } from "../../Reducer/actions";
-
+import * as Validator from '../../Validator/Validator'
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -17,48 +18,72 @@ class SignUp extends Component {
     };
     this.onSignup = this.onSignup.bind(this);
     this.clearScreen = this.clearScreen.bind(this);
+    this.uname = React.createRef()
+    this.pass = React.createRef()
+    this.check1 = React.createRef()
+    this.check2 = React.createRef()
   }
-  clearScreen(){
+  clearScreen() {
     debugger
+    this.uname.current.value = ''
+    this.pass.current.value = ''
+
     this.setState({
-      uname : null,
-      pass:null
-        })
+      uname: null,
+      pass: null,
+      selectedOption: null
+    })
   }
-  async onSignup(e) {
-    debugger;
+  componentDidMount() {
+    debugger
+    this.uname.current.focus()
+  }
+  onSignup(e) {
     e.preventDefault();
     try {
+      Validator.add(this.uname, ' Please enter a username')
+      Validator.add(this.pass, "Please enter a password")
+      if (this.state.selectedOption === null) {
+        swal({
+          title: "Oops!",
+          text: "Please select your role!",
+          icon: "error",
+        });
+      }
+      // Validator.add(this.check1, "Please enter your role")
+      Validator.vision()
 
-      let myuser = {
-        type: this.state.selectedOption === "inlineCheckbox1" ? "MENTOR" : "EMPLOYEE",
-        uname: this.state.uname,
-        pass: this.state.pass
-      }
-      if (this.state.selectedOption === "inlineCheckbox1") {
-        this.props.dispatch(login("users",
-          myuser
+      let asd = Validator.errorFoc()
+      if (asd) {
+        let myuser = {
+          type: this.state.selectedOption === "inlineCheckbox1" ? "MENTOR" : "EMPLOYEE",
+          uname: this.state.uname,
+          pass: this.state.pass
+        }
+        if (this.state.selectedOption === "inlineCheckbox1") {
+          this.props.dispatch(login("users",
+            myuser
           ));
-        await  this.clearScreen()
-        // swal({
-        //   title: "Hooray!",
-        //   text: "Registered Successfully",
-        //   icon: "success",
-        // },()=>this.clearScreen()); 
-        
-      }
-      else {
-        this.props.dispatch(login("users",
-          myuser));
           this.clearScreen()
           swal({
             title: "Hooray!",
             text: "Registered Successfully",
             icon: "success",
           });
-        
+
+        }
+        else {
+          this.props.dispatch(login("users",
+            myuser));
+          this.clearScreen()
+          swal({
+            title: "Hooray!",
+            text: "Registered Successfully",
+            icon: "success",
+          });
+
+        }
       }
-     
     } catch (error) {
       console.log(error);
     }
@@ -90,6 +115,7 @@ class SignUp extends Component {
                         name="uname"
                         value={this.state.uname}
                         className="form-control"
+                        ref={this.uname}
                         id="text"
                         aria-describedby="emailHelp"
                         placeholder="Enter User Name"
@@ -112,6 +138,7 @@ class SignUp extends Component {
                         name="password"
                         id="password"
                         value={this.state.pass}
+                        ref={this.pass}
                         className="form-control"
                         aria-describedby="emailHelp"
                         placeholder="Enter Password"
@@ -128,6 +155,7 @@ class SignUp extends Component {
                           className="form-check-input"
                           type="checkbox"
                           id="inlineCheckbox1"
+                          ref={this.check1}
                           checked={
                             this.state.selectedOption === "inlineCheckbox1"
                           }
@@ -150,6 +178,7 @@ class SignUp extends Component {
                           className="form-check-input"
                           type="checkbox"
                           id="inlineCheckbox2"
+                          ref={this.check2}
                           checked={
                             this.state.selectedOption === "inlineCheckbox2"
                           }
@@ -192,6 +221,7 @@ class SignUp extends Component {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
     );
   }

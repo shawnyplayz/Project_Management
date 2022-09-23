@@ -39,7 +39,7 @@ class Login extends Component {
 
         let myuserStringified = JSON.stringify(myuser)
 
-        c = yourUser == myuserStringified
+        c = yourUser === myuserStringified
         console.log(c)
         if (c) {
           this.props.dispatch(currentlogin('currentUser', myuser))

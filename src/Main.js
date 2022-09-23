@@ -9,6 +9,7 @@ import AddProj from "./Components/AddProj/AddProj";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import Login from "./Components/Login/Login";
 import SignUp from "./Components/SignUp/SignUp";
+import HomeEmp from "./HomeEmp/HomeEmp";
 import * as Logo from "./images/tabloid.jpg";
 import "./Main.css";
 
@@ -35,14 +36,20 @@ export default class Main extends Component {
                 <Route path="/Home">
                   <Dashboard />
                 </Route>
+                <Route path='/HomeEmp'>
+                  <Dashboard />
+                </Route>
                 <Route path="/addProj">
+                  <Dashboard />
+                </Route>
+                <Route path="/Personal">
                   <Dashboard />
                 </Route>
               </Switch>
             </Router>
           </Suspense>
         </div>
-      </div>
+      </div >
     );
   }
 }
