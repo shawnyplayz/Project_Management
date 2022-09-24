@@ -19,7 +19,7 @@ class AddProj extends Component {
       displayArr: [],
       selectedMem: null,
       dispatchingArr: [],
-      stack: null,
+      stack: 'MERN',
       nameProj: '',
       techs: ['MEAN', '.NET', 'PYTON']
     }

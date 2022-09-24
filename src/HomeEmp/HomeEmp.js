@@ -79,7 +79,6 @@ class HomeEmp extends Component {
             
           })
           :
-            
             <h2>No Projects</h2>
         }
             </div>
